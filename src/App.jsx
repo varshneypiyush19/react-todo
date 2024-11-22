@@ -15,7 +15,7 @@ function App() {
   useEffect(() => {
     const fetching = async () => {
       setLoading(true);
-      axios
+      await axios
         .get(`${server}/users/me`, {
           withCredentials: true,
         })
