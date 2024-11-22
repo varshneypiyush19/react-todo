@@ -13,22 +13,25 @@ function App() {
   const { setUser, setIsAuthenticated, setLoading } = useContext(Context);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .get(`${server}/users/me`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setUser(res.data.user);
-        setIsAuthenticated(true);
-        setLoading(false);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        setUser({});
-        setIsAuthenticated(false);
-        setLoading(false);
-      });
+    const fetching = async () => {
+      setLoading(true);
+      axios
+        .get(`${server}/users/me`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setUser(res.data.user);
+          setIsAuthenticated(true);
+          setLoading(false);
+        })
+        .catch((error) => {
+          toast.error(error.response.data.message);
+          setUser({});
+          setIsAuthenticated(false);
+          setLoading(false);
+        });
+    };
+    fetching();
   }, []);
 
   return (

@@ -72,16 +72,19 @@ const Home = () => {
   };
 
   useEffect(() => {
-    axios
-      .get(`${server}/task/myTask`, {
-        withCredentials: true,
-      })
-      .then((res) => {
-        setTasks(res.data.tasks);
-      })
-      .catch((e) => {
-        toast.error(e.response.data.message);
-      });
+    const fetching = async () => {
+      await axios
+        .get(`${server}/task/myTask`, {
+          withCredentials: true,
+        })
+        .then((res) => {
+          setTasks(res.data.tasks);
+        })
+        .catch((e) => {
+          toast.error(e.response.data.message);
+        });
+    };
+    fetching();
   }, [refresh]);
 
   if (!isAuthenticated) return <Navigate to={"/login"} />;

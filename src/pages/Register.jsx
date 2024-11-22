@@ -67,7 +67,9 @@ const Register = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <button type="submit">Sign Up</button>
+          <button disabled={loading} type="submit">
+            Sign Up
+          </button>
           <h4>Or</h4>
           <Link to="/login">Log In</Link>
         </form>
