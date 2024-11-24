@@ -15,21 +15,20 @@ function App() {
   useEffect(() => {
     const fetching = async () => {
       setLoading(true);
-      await axios
-        .get(`${server}/users/me`, {
+      try {
+        const res = await axios.get(`${server}/users/me`, {
           withCredentials: true,
-        })
-        .then((res) => {
-          setUser(res.data.user);
-          setIsAuthenticated(true);
-          setLoading(false);
-        })
-        .catch((error) => {
-          toast.error(error.response.data.message);
-          setUser({});
-          setIsAuthenticated(false);
-          setLoading(false);
         });
+        setUser(res.data.user);
+        setIsAuthenticated(true);
+      } catch (error) {
+        console.error(error); // Log the error for debugging
+        toast.error(error.response.data.message);
+        setUser({});
+        setIsAuthenticated(false);
+      } finally {
+        setLoading(false); // Ensure loading state is set to false regardless of success or failure
+      }
     };
     fetching();
   }, []);

@@ -73,16 +73,23 @@ const Home = () => {
 
   useEffect(() => {
     const fetching = async () => {
-      await axios
-        .get(`${server}/task/myTask`, {
+      // await axios
+      //   .get(`${server}/task/myTask`, {
+      //     withCredentials: true,
+      //   })
+      //   .then((res) => {
+      //     setTasks(res.data.tasks);
+      //   })
+      try {
+        const response = await axios.get(`${server}/task/myTask`, {
           withCredentials: true,
-        })
-        .then((res) => {
-          setTasks(res.data.tasks);
-        })
-        .catch((e) => {
-          toast.error(e.response.data.message);
         });
+        setTasks(response.data.tasks);
+      } catch {
+        (e) => {
+          toast.error(e.response.data.message);
+        };
+      }
     };
     fetching();
   }, [refresh]);
