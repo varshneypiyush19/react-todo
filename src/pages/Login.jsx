@@ -31,11 +31,11 @@ const Login = () => {
 
       toast.success(data.message);
       setIsAuthenticated(true);
-      setLoading(false);
     } catch (error) {
       toast.error(error.response.data.message);
-      setLoading(false);
       setIsAuthenticated(false);
+    } finally {
+      setLoading(false); // Ensure loading state is set to false regardless of success or failure
     }
   };
 

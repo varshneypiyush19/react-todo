@@ -22,7 +22,7 @@ function App() {
         setUser(res.data.user);
         setIsAuthenticated(true);
       } catch (error) {
-        console.error(error); // Log the error for debugging
+        // console.error(error); // Log the error for debugging
         toast.error(error.response.data.message);
         setUser({});
         setIsAuthenticated(false);
@@ -31,7 +31,7 @@ function App() {
       }
     };
     fetching();
-  }, []);
+  }, [setIsAuthenticated, setLoading, setUser]);
 
   return (
     <Router>
